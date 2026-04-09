@@ -1,0 +1,337 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-dark: #061d5e;
+      --blue-mid: #0a2f7a;
+      --blue-light: #1a4aaa;
+      --accent: #0a7fd4;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #7a2a0a 0%, #ffb977 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 52px 20px 40px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background dots */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glowing orb background */
+    .orb {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(10,127,212,0.18) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
+      z-index: 0;
+      animation: orbPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes orbPulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Avatar */
+    .avatar-wrapper {
+      position: relative;
+    width: 150px;
+    height: 150px;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 50%; /* Crea el círculo */
+    display: flex;
+    align-items: flex-end; /* Alinea la máquina a la base */
+    justify-content: center;
+    /* El secreto: no usamos overflow: hidden aquí para que el brazo salga */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    
+  .profile-logo {
+    width: 165%; /* Un poco más grande que el círculo para que sobresalga */
+    height: auto;
+    position: absolute;
+    bottom: 10px; /* Ajusta según tu imagen */
+  
+  /* Efecto de máscara: solo corta la parte inferior si es necesario */
+  /* Si tu logo ya tiene el escudo blanco, solo debes posicionarlo */
+  transition: transform 0.3s ease;
+}
+    .avatar-wrapper:hover .profile-logo {
+    transform: scale(1.1) translateY(-5px);
+      }
+
+    .avatar-wrapper svg { width: 62px; height: 62px; }
+
+
+    .username {
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+      animation: fadeDown 0.55s ease both;
+    }
+
+    .title {
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-align: center;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .tagline {
+      color: rgba(255,255,255,0.45);
+      font-size: 13px;
+      margin-bottom: 36px;
+      text-align: center;
+      animation: fadeDown 0.65s ease both;
+    }
+
+    /* Social links */
+    .links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      margin-bottom: 36px;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(221, 171, 140, 0.349);
+      border-radius: 14px;
+      padding: 15px 20px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .link-btn:nth-child(1) { animation-delay: 0.1s; }
+    .link-btn:nth-child(2) { animation-delay: 0.2s; }
+    .link-btn:nth-child(3) { animation-delay: 0.3s; }
+
+    .link-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10,47,122,0.06);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .link-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+    }
+
+    .link-btn:hover::after { opacity: 1; }
+
+    .link-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .icon-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: rgb(255, 255, 255);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .link-btn:hover .icon-wrap { background:var(#ffb977); }
+
+    .link-label {
+      flex: 1;
+      text-align: center;
+      color: rgb(250, 244, 238);
+      font-size: 16px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .dots {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5px;
+      padding: 4px;
+    }
+
+    .dots span {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(10,47,122,0.3);
+      display: block;
+    }
+
+    /* Copied tooltip */
+    .tooltip {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: rgba(255,255,255,0.95);
+      color: var(--blue-dark);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 50px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 100;
+      white-space: nowrap;
+    }
+
+    .tooltip.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Ripple effect */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(10,47,122,0.15);
+      transform: scale(0);
+      animation: rippleAnim 0.55s linear;
+      pointer-events: none;
+    }
+
+    @keyframes rippleAnim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* Share button */
+    .share-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(209, 205, 205, 0.2);
+      color: white;
+      border-radius: 50px;
+      padding: 13px 32px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      width: 100%;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      animation: fadeUp 0.5s 0.4s ease both;
+    }
+
+    .share-btn:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-1px);
+    }
+
+    .share-btn:active { transform: scale(0.97); }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 36px;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .stat-num {
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      color: rgba(255,255,255,0.45);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(255,255,255,0.15);
+      align-self: center;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 28px;
+      color: rgba(255,255,255,0.35);
+      font-size: 12px;
+      display: flex;
+      gap: 14px;
+      animation: fadeUp 0.5s 0.5s ease both;
+    }
+
+    .footer a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    
+    .footer a:hover { color: rgba(255,255,255,0.7); }
+
+
+
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
